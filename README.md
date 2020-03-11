@@ -19,7 +19,7 @@ sealctl user -u fanux --group sealyun --group sealos
 Then sealctl will generate a kubeconfig for fanux.
 
 ```
-$ cat kubeconfig
+$ cat ./kube/config
 apiVersion: v1
 clusters:
 - cluster:
