@@ -40,35 +40,6 @@ users:
 Error from server (Forbidden): pods is forbidden: User "fanux" cannot list resource "pods" in API group "" in the namespace "default"
 ```
 
-### Group
-
-Only group admin can bind user to his group.
-
-fanux create a group and set Bob as admin, Alice is member, who create the group his default role is admin, if group sealyun not exist,will create it.
-```shell
-sealctl group apply sealyun --admin Bob --member Alice
-```
-Then you can see Group CRD:
-```shell script
-kubectl get group
-```
-
-## Bind user or group to namespace
-
-```
-# forbidden to default
-kubectl --kubeconfig kubeconfig get pod -n default 
-sealctl bind --user fanux --ns default
-# fanux access to default now
-kubectl --kubeconfig kubeconfig get pod -n default
-
-# forbidden to kube-system
-kubectl --kubeconfig kubeconfig get pod -n kube-system
-sealctl bind --group sealos --ns kube-system
-# access to kube-system now
-kubectl --kubeconfig kubeconfig get pod -n kube-system
-```
-
 ## Bind a role
 
 You can bind role to user or group.
@@ -103,6 +74,35 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin  # using admin role
   apiGroup: rbac.authorization.k8s.io
+```
+
+### Group
+
+Only group admin can bind user to his group.
+
+fanux create a group and set Bob as admin, Alice is member, who create the group his default role is admin, if group sealyun not exist,will create it.
+```shell
+sealctl group apply sealyun --admin Bob --member Alice
+```
+Then you can see Group CRD:
+```shell script
+kubectl get group
+```
+
+## Bind user or group to namespace
+
+```
+# forbidden to default
+kubectl --kubeconfig kubeconfig get pod -n default 
+sealctl bind --user fanux --ns default
+# fanux access to default now
+kubectl --kubeconfig kubeconfig get pod -n default
+
+# forbidden to kube-system
+kubectl --kubeconfig kubeconfig get pod -n kube-system
+sealctl bind --group sealos --ns kube-system
+# access to kube-system now
+kubectl --kubeconfig kubeconfig get pod -n kube-system
 ```
 
 ## Set namespace quota
