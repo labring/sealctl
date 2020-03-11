@@ -43,7 +43,7 @@ users:
 fanux has no access to pods before we bind a role to he.
 
 ```
-# kubectl --kubeconfig kubeconfig get pod
+# kubectl --kubeconfig ./kube/config get pod
 Error from server (Forbidden): pods is forbidden: User "fanux" cannot list resource "pods" in API group "
 ```
 
