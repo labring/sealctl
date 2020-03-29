@@ -17,8 +17,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"k8s.io/client-go/util/keyutil"
 	certutil "k8s.io/client-go/util/cert"
+	"k8s.io/client-go/util/keyutil"
 )
 
 const (
@@ -36,8 +36,9 @@ const (
 
 // Config contains the basic fields required for creating a certificate
 type Config struct {
-	Path string               // Writeto Dir
-	BaseName string           // Writeto file name
+	Path         string // Writeto Dir
+	BaseName     string // Writeto file name
+	CAName       string // root ca map key
 	CommonName   string
 	Organization []string
 	Year         time.Duration
@@ -162,7 +163,7 @@ func WriteCert(pkiPath, name string, cert *x509.Certificate) error {
 
 	certificatePath := pathForCert(pkiPath, name)
 	if err := certutil.WriteCert(certificatePath, EncodeCertPEM(cert)); err != nil {
-		return fmt.Errorf( "unable to write certificate to file %s %s", certificatePath, err)
+		return fmt.Errorf("unable to write certificate to file %s %s", certificatePath, err)
 	}
 
 	return nil
