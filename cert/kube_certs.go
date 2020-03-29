@@ -44,8 +44,68 @@ var certList = []Config{
 		CommonName:   "kube-apiserver",
 		Organization: nil,
 		Year:         100,
-		AltNames:     AltNames{},
+		AltNames:     AltNames{}, // TODO need set altNames
 		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+	},
+	{
+		Path:         "pki",
+		BaseName:     "apiserver-kubelet-client",
+		CAName:       "kubernetes",
+		CommonName:   "kube-apiserver-kubelet-client",
+		Organization: []string{"system:masters"},
+		Year:         100,
+		AltNames:     AltNames{},
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
+	},
+	{
+		Path:         "pki",
+		BaseName:     "front-proxy-client",
+		CAName:       "front-proxy-ca",
+		CommonName:   "front-proxy-client",
+		Organization: nil,
+		Year:         100,
+		AltNames:     AltNames{},
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
+	},
+	{
+		Path:         "pki",
+		BaseName:     "apiserver-etcd-client",
+		CAName:       "etcd-ca",
+		CommonName:   "kube-apiserver-etcd-client",
+		Organization: []string{"system:masters"},
+		Year:         100,
+		AltNames:     AltNames{},
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
+	},
+	{
+		Path:         "pki/etcd",
+		BaseName:     "server",
+		CAName:       "etcd-ca",
+		CommonName:   "etcd", // TODO kubeadm using node name as common name cc.CommonName = mc.NodeRegistration.Name
+		Organization: nil,
+		Year:         100,
+		AltNames:     AltNames{}, // TODO need set altNames
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
+	},
+	{
+		Path:         "pki/etcd",
+		BaseName:     "peer",
+		CAName:       "etcd-ca",
+		CommonName:   "etcd-peer", // TODO
+		Organization: nil,
+		Year:         100,
+		AltNames:     AltNames{}, // TODO
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth, x509.ExtKeyUsageClientAuth},
+	},
+	{
+		Path:         "pki/etcd",
+		BaseName:     "healthcheck-client",
+		CAName:       "etcd-ca",
+		CommonName:   "kube-etcd-healthcheck-client",
+		Organization: []string{"system:masters"},
+		Year:         100,
+		AltNames:     AltNames{},
+		Usages:       []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},
 	},
 }
 
