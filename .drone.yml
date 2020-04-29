@@ -1,0 +1,28 @@
+kind: pipeline
+name: default
+workspace:
+    base: /go
+    path: src/github.com/fanux/sealctl
+
+# go mod vender
+#environment:
+#    GO111MODULE: on
+
+steps:
+- name: build
+  image: golang:1.13.5
+  commands:
+      - go build -mod vendor -o sealctl main.go
+
+- name: publish
+  image: plugins/github-release
+  settings:
+    api_key:
+        from_secret: git-release-token
+    files: sealos
+    title: ${DRONE_TAG}
+    note: README.md
+  when:
+     event:
+     - tag
+
