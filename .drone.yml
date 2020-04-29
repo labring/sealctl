@@ -19,7 +19,7 @@ steps:
   settings:
     api_key:
         from_secret: git-release-token
-    files: sealos
+    files: sealctl
     title: ${DRONE_TAG}
     note: README.md
   when:
