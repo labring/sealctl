@@ -64,10 +64,10 @@ func EncodeCertPEM(cert *x509.Certificate) []byte {
 
 func GenerateKubeconfig(conf Config) error{
 	certs, err := cert.CertsFromFile(conf.CACrtFile)
-	caCert := certs[0]
 	if err != nil {
-		return fmt.Errorf("load ca and cert failed %s", err)
+		return fmt.Errorf("load ca and cert failed %s, %s", err, conf.CACrtFile)
 	}
+	caCert := certs[0]
 	cert := EncodeCertPEM(caCert)
 	caKey,err := TryLoadKeyFromDisk(conf.CAKeyFile)
 	if err != nil {

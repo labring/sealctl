@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/fanux/sealctl/user"
 	"net"
 
@@ -33,11 +34,13 @@ var userCmd = &cobra.Command{
            you can use this command generate a kubeconfig for him, and bind 
            read only role etc..`,
 	Run: func(cmd *cobra.Command, args []string) {
-		conf = user.Config{}
 		for _,ip := range ips {
 			conf.IPAddresses = append(conf.IPAddresses,net.ParseIP(ip))
 		}
-		user.GenerateKubeconfig(conf)
+		err := user.GenerateKubeconfig(conf)
+		if err != nil {
+			fmt.Println(err)
+		}
 	},
 }
 
