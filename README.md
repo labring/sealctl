@@ -40,7 +40,7 @@ users:
     client-certificate-data: LS0tLS1CRUdJTiBDR...
     client-key-data: LS0tLS1CRUd...
 ```
-fanux has no access to pods before we bind a role to he.
+fanux has no access to pods before we bind a role to him.
 
 ```
 # kubectl --kubeconfig ./kube/config get pod
